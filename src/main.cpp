@@ -5,7 +5,8 @@
 #define pe 5 //Echo
 
 // put function declarations here:
-int pinMotor = 9;
+int pinMotorEsquerda = 9;
+int pinMotorDireita = 10;
 int pinFotoEsquerda = A1;
 int pinFotoDireita = A2;
 
@@ -15,7 +16,8 @@ int distance;
 void setup() {
   pinMode(pinFotoEsquerda, INPUT);
   pinMode(pinFotoDireita, INPUT);
-  pinMode(pinMotor, OUTPUT);
+  pinMode(pinMotorEsquerda, OUTPUT);
+  pinMode(pinMotorDireita, OUTPUT);
   Serial.begin(9600);
 }
 
@@ -23,17 +25,23 @@ void loop() {
   distance = ultrasonic.read();
   if(distance < 15 || ((digitalRead(pinFotoEsquerda))&&(digitalRead(pinFotoDireita)))){
     Serial.println("Stop");
-    digitalWrite(pinMotor, LOW);
+    digitalWrite(pinMotorEsquerda, HIGH);
+    digitalWrite(pinMotorDireita, HIGH);
   }
   else if((digitalRead(pinFotoEsquerda)) && !(digitalRead(pinFotoDireita))){
     Serial.println("Esquerda");
+    digitalWrite(pinMotorEsquerda, LOW);
+    digitalWrite(pinMotorDireita, HIGH);
   }
   else if((digitalRead(pinFotoDireita)) && !(digitalRead(pinFotoEsquerda))){
     Serial.println("Direita");
+    digitalWrite(pinMotorEsquerda, HIGH);
+    digitalWrite(pinMotorDireita, LOW);
   }
   else{
     Serial.println("Continue");
-    digitalWrite(pinMotor, HIGH);
+    digitalWrite(pinMotorEsquerda, LOW);
+    digitalWrite(pinMotorDireita, LOW);
   }
   delay(250);
 }
