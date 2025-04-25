@@ -1,10 +1,10 @@
 #include <Arduino.h>
 #include <Ultrasonic.h>
 
-#define pt 4 //Trig
-#define pe 5 //Echo
+#define pt 4 // Trig
+#define pe 5 // Echo
 
-// put function declarations here:
+// Function declarations:
 int pinMotorEsquerda = 9;
 int pinMotorDireita = 10;
 int pinFotoEsquerda = A1;
@@ -13,7 +13,8 @@ int pinFotoDireita = A2;
 Ultrasonic ultrasonic(pt, pe);
 int distance;
 
-void setup() {
+void setup()
+{
   pinMode(pinFotoEsquerda, INPUT);
   pinMode(pinFotoDireita, INPUT);
   pinMode(pinMotorEsquerda, OUTPUT);
@@ -21,29 +22,32 @@ void setup() {
   Serial.begin(9600);
 }
 
-void loop() {
+void loop()
+{
   distance = ultrasonic.read();
-  if(distance < 15 || ((digitalRead(pinFotoEsquerda))&&(digitalRead(pinFotoDireita)))){
+  if (distance < 15 || ((digitalRead(pinFotoEsquerda)) && (digitalRead(pinFotoDireita))))
+  {
     Serial.println("Stop");
-    digitalWrite(pinMotorEsquerda, HIGH);
-    digitalWrite(pinMotorDireita, HIGH);
+    digitalWrite(pinMotorEsquerda, LOW);
+    digitalWrite(pinMotorDireita, LOW);
   }
-  else if((digitalRead(pinFotoEsquerda)) && !(digitalRead(pinFotoDireita))){
+  else if ((digitalRead(pinFotoEsquerda)) && !(digitalRead(pinFotoDireita)))
+  {
     Serial.println("Esquerda");
     digitalWrite(pinMotorEsquerda, LOW);
     digitalWrite(pinMotorDireita, HIGH);
   }
-  else if((digitalRead(pinFotoDireita)) && !(digitalRead(pinFotoEsquerda))){
+  else if ((digitalRead(pinFotoDireita)) && !(digitalRead(pinFotoEsquerda)))
+  {
     Serial.println("Direita");
     digitalWrite(pinMotorEsquerda, HIGH);
     digitalWrite(pinMotorDireita, LOW);
   }
-  else{
+  else
+  {
     Serial.println("Continue");
     digitalWrite(pinMotorEsquerda, LOW);
     digitalWrite(pinMotorDireita, LOW);
   }
   delay(250);
 }
-
-// put function definitions here:
