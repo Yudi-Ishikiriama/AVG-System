@@ -1,16 +1,17 @@
 #include <Arduino.h>
 #include <Ultrasonic.h>
 
-#define pt 4 // Trig
-#define pe 5 // Echo
+#define pinTrig 4 // Trig
+#define pinEcho 5 // Echo
 
 // Function declarations:
 int pinMotorEsquerda = 9;
 int pinMotorDireita = 10;
+byte pinReed = 12;
 int pinFotoEsquerda = A1;
 int pinFotoDireita = A2;
 
-Ultrasonic ultrasonic(pt, pe);
+Ultrasonic ultrasonic(pinTrig, pinEcho);
 int distance;
 
 void setup()
@@ -28,6 +29,12 @@ void loop()
   if (distance < 15 || ((digitalRead(pinFotoEsquerda)) && (digitalRead(pinFotoDireita))))
   {
     Serial.println("Stop");
+    digitalWrite(pinMotorEsquerda, LOW);
+    digitalWrite(pinMotorDireita, LOW);
+  }
+  else if (!digitalRead(pinReed))
+  {
+    Serial.println("Local Encontrado");
     digitalWrite(pinMotorEsquerda, LOW);
     digitalWrite(pinMotorDireita, LOW);
   }
