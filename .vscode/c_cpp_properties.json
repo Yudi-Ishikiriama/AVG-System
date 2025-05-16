@@ -10,6 +10,7 @@
             "includePath": [
                 "C:/Users/ra2457051/Documents/PlatformIO/Projects/AGV System/include",
                 "C:/Users/ra2457051/Documents/PlatformIO/Projects/AGV System/src",
+                "C:/Users/ra2457051/Documents/PlatformIO/Projects/AGV System/.pio/libdeps/mega/Servo/src",
                 "C:/Users/ra2457051/Documents/PlatformIO/Projects/AGV System/.pio/libdeps/mega/Ultrasonic/src",
                 "C:/Users/ra2457051/Documents/PlatformIO/Projects/AGV System/.pio/libdeps/mega/HCSR04/src",
                 "C:/Users/ra2457051/.platformio/packages/framework-arduino-avr/cores/arduino",
@@ -26,6 +27,7 @@
                 "path": [
                     "C:/Users/ra2457051/Documents/PlatformIO/Projects/AGV System/include",
                     "C:/Users/ra2457051/Documents/PlatformIO/Projects/AGV System/src",
+                    "C:/Users/ra2457051/Documents/PlatformIO/Projects/AGV System/.pio/libdeps/mega/Servo/src",
                     "C:/Users/ra2457051/Documents/PlatformIO/Projects/AGV System/.pio/libdeps/mega/Ultrasonic/src",
                     "C:/Users/ra2457051/Documents/PlatformIO/Projects/AGV System/.pio/libdeps/mega/HCSR04/src",
                     "C:/Users/ra2457051/.platformio/packages/framework-arduino-avr/cores/arduino",
