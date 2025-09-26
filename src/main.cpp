@@ -75,33 +75,38 @@ void loop()
   if (blocked)
   {
     Serial.println("Stop");
+    Serial.println(distance);
     stopMotors();
+    delay(250);
+    return;
   }
-
-  if (!blocked && !digitalRead(pinReed)) 
+  
+  if (!digitalRead(pinReed)) 
   {
     Serial.println("Local Encontrado");
     stopMotors();
     moveFork();
+    delay(250);
+    return;
   }
 
-  if (!blocked && (digitalRead(pinFotoEsquerda)) && !(digitalRead(pinFotoDireita)))
+  if (digitalRead(pinFotoEsquerda))
   {
     Serial.println("Esquerda");
     turnLeft();
+    delay(250);
+    return;
   }
   
-  if (!blocked && (digitalRead(pinFotoDireita)) && !(digitalRead(pinFotoEsquerda)))
+  if (digitalRead(pinFotoDireita))
   {
     Serial.println("Direita");
     turnRight();
+    delay(250);
+    return;
   }
 
-  if (!blocked && !(digitalRead(pinFotoEsquerda)) && !(digitalRead(pinFotoDireita)))
-  {
-    Serial.println("Segue");
-    moveForward();
-  }
-  
+  Serial.println("Segue");
+  moveForward();
   delay(250);
 }
