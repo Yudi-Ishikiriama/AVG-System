@@ -1,0 +1,63 @@
+#include <Arduino.h>
+#include <Servo.h>
+
+
+Servo servoBase;
+Servo servoBrEs;
+Servo servoBrDr;
+Servo servoGr;
+
+
+void setup() {
+  servoBase.attach(5); // Define o pino de sinal
+  servoBrDr.attach(4);
+  servoBrEs.attach(2);
+  servoGr.attach(3);
+  Serial.begin(9600);
+}
+
+void subirGarra(){
+    servoBrEs.write(90);
+    servoBrDr.write(30);
+    Serial.println("a");
+}
+
+void descerGarra(){
+    servoBrEs.write(20);
+    servoBrDr.write(90);
+    Serial.println("b");
+}
+
+void abrirGarra(){
+    servoGr.write(180);
+    Serial.println("abre");
+}
+
+void fecharGarra(){
+    servoGr.write(10);
+    Serial.println("fecha");
+}
+
+void garraPDireita(){
+    servoBase.write(30);
+    Serial.println("d");
+}
+
+void garraPEsquerda(){
+    servoBase.write(180);
+    Serial.println("e");
+}
+
+void garraCentro(){
+    servoBase.write(110);
+    Serial.println("c");
+}
+
+void loop(){
+    abrirGarra();
+    delay(3000);
+    fecharGarra();
+    delay(3000);
+    garraPEsquerda();
+    delay(4000);
+}
