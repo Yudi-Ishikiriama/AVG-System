@@ -2,48 +2,93 @@
 #include <Ultrasonic.h>
 #include <Servo.h> 
 
-#define pinTrig 4 // Ultrassom Trig
-#define pinEcho 5 // Ultrassom Echo
 
 Servo servo;
 
-int pinMotorEsquerda = 9;
-int pinFotoEsquerda = A1;
+const int A1B = 8;//verde
+const int A1A = 9;//azul
+const int B1A = 13;//amarelo
+const int B1B = 12;//roxo
 
-int pinMotorDireita = 10;
-int pinFotoDireita = A2;
+
+
 
 int pinReed = 12;
 int pinServo = 13;
+const int speed = 50;
 
-Ultrasonic ultrasonic(pinTrig, pinEcho);
-int distance;
-int pos;
 
 //Funções
 
 void stopMotors()
 {
-  digitalWrite(pinMotorEsquerda, LOW);
-  digitalWrite(pinMotorDireita, LOW);
+  digitalWrite(A1A, LOW);
+  digitalWrite(A1B, LOW);
+  digitalWrite(B1A, HIGH);
+  digitalWrite(B1B, HIGH);
+  Serial.println("parou");
 }
 
 void moveForward()
 {
-  digitalWrite(pinMotorEsquerda, HIGH);
-  digitalWrite(pinMotorDireita, HIGH);
+  digitalWrite(A1A, HIGH);
+  digitalWrite(A1B, LOW);
+  digitalWrite(B1A, LOW);
+  digitalWrite(B1B, HIGH);
+  Serial.println("frente");
+}
+
+void moveBackwards() {
+  digitalWrite(A1A, LOW);
+  digitalWrite(A1B, HIGH);
+  digitalWrite(B1B, HIGH);
+  digitalWrite(B1A, LOW);
+  Serial.println("tras");
 }
 
 void turnLeft()
 {
-  digitalWrite(pinMotorEsquerda, LOW);
-  digitalWrite(pinMotorDireita, HIGH);
+  digitalWrite(A1A, LOW);
+  digitalWrite(A1B, HIGH);
+  digitalWrite(B1A, LOW);
+  digitalWrite(B1B, LOW);
+  Serial.println("esquerda");
 }
 
 void turnRight()
 {
-  digitalWrite(pinMotorEsquerda, HIGH);
-  digitalWrite(pinMotorDireita, LOW);
+  digitalWrite(B1A, LOW);
+  digitalWrite(B1B, HIGH);
+  digitalWrite(A1A, LOW);
+  digitalWrite(A1B, LOW);
+  Serial.println("direita");
+}
+
+void motorbt(){
+  digitalWrite(B1A, HIGH);
+  digitalWrite(B1B, LOW);
+  Serial.println("motorbt");
+}
+void motorbf(){
+  digitalWrite(B1A, LOW);
+  digitalWrite(B1B, HIGH);
+  Serial.println("motorbf");
+}
+
+void motora(){
+  digitalWrite(A1A, HIGH);
+  digitalWrite(A1B, LOW);
+  digitalWrite(B1B, HIGH);
+  digitalWrite(B1A, HIGH);
+  Serial.println("motorafrente");
+}
+
+void motorat(){
+  digitalWrite(A1B, HIGH);
+  digitalWrite(A1A, LOW);
+  digitalWrite(B1B, HIGH);
+  digitalWrite(B1A, HIGH);
+  Serial.println("motoratras");
 }
 
 void moveFork()
@@ -58,55 +103,15 @@ void moveFork()
 
 void setup()
 {
-  pinMode(pinFotoEsquerda, INPUT);
-  pinMode(pinFotoDireita, INPUT);
-  pinMode(pinMotorEsquerda, OUTPUT);
-  pinMode(pinMotorDireita, OUTPUT);
-  servo.attach(pinServo);
-  servo.write(0);
   Serial.begin(9600);
+  pinMode(A1A, OUTPUT);
+  pinMode(A1B, OUTPUT);
+  pinMode(B1A, OUTPUT);
+  pinMode(B1B, OUTPUT);
 }
 
 void loop()
 {
-  distance = ultrasonic.read();
-  bool blocked = (distance < 15 || ((digitalRead(pinFotoEsquerda)) && (digitalRead(pinFotoDireita))));
-
-  if (blocked)
-  {
-    Serial.println("Stop");
-    Serial.println(distance);
-    stopMotors();
-    delay(250);
-    return;
-  }
+  motorbt();
   
-  if (!digitalRead(pinReed)) 
-  {
-    Serial.println("Local Encontrado");
-    stopMotors();
-    moveFork();
-    delay(250);
-    return;
-  }
-
-  if (digitalRead(pinFotoEsquerda))
-  {
-    Serial.println("Esquerda");
-    turnLeft();
-    delay(250);
-    return;
-  }
-  
-  if (digitalRead(pinFotoDireita))
-  {
-    Serial.println("Direita");
-    turnRight();
-    delay(250);
-    return;
-  }
-
-  Serial.println("Segue");
-  moveForward();
-  delay(250);
 }
